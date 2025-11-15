@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="release-detail-page" *ngIf="release$ | async as release">
+    <button class="back-button" (click)="goBack()">← Back</button>
+
+    <h1>{{ release.title }}</h1>
+    <h2>{{ release.artist }}</h2>
+    <img [src]="release.coverImageUrl" [alt]="release.title">
+
+    <p>{{ release.description }}</p>
+
+    <div class="rating-section">
+      <div *ngIf="!ratingSubmitted; else thankYouRating">
+        <app-star-rating
+          [rating]="release.averageRating"
+          (ratingChange)="onRating(release.id, $event)"
+          [disabled]="ratingSubmitted"
+        /> <!-- Changed to self-closing tag -->
+      </div>
+      <ng-template #thankYouRating>
+        <p>Tack för ditt betyg!</p>
+      </ng-template>
+      <p>({{ release.averageRating | number:'1.1-1' }} / 5, {{ release.numberOfRatings }} votes)</p>
+      <p>Total Time: {{ release.totalTime }}</p>
+    </div>
+
+    <div class="tracklist">
+      <h3>Tracklist</h3>
+      <ul>
+        <li *ngFor="let track of release.tracklist">
+          {{ track }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="comments-section">
+      <h3>Comments</h3>
+      <ul *ngIf="comments$ | async as comments">
+        <li *ngFor="let comment of comments" class="comment-item">
+          <p><strong>{{ comment.name }}</strong> <span class="comment-date">({{ comment.createdAt | date:'short' }})</span></p>
+          <p>{{ comment.commentText }}</p>
+        </li>
+      </ul>
+
+      <div *ngIf="!commentSubmitted; else thankYouComment">
+        <app-comment-form (commentSubmit)="onComment($event)"></app-comment-form>
+      </div>
+      <ng-template #thankYouComment>
+        <p>Tack för din kommentar!</p>
+      </ng-template>
+    </div>
+  </div>
+</div>

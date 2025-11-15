@@ -1,0 +1,9 @@
+<div class="genre-dropdown-container">
+  <label for="genre-select">Filter by Genre:</label>
+  <select id="genre-select" [ngModel]="selectedGenre" (ngModelChange)="genreSelected.emit($event)">
+    <option value="">All Genres</option>
+    <option *ngFor="let genre of genres" [value]="genre.name">
+      {{ genre.name }} ({{ genre.count }})
+    </option>
+  </select>
+</div>

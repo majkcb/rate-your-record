@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: rate-your-record
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:rateyourrecorddb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE # Explicitly define H2 URL
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+
+discogs:
+  base-url: https://api.discogs.com
+  token: TCdgqdBNaMimdlfMJJikcKWvrfDlqFbjtGCosbaj
+  user-agent: RateYourRecord/1.0 +https://your-app-url.com
+  endpoints:
+    search: /database/search
+    release: /releases

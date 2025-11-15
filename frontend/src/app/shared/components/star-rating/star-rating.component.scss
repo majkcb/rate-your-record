@@ -1,0 +1,23 @@
+.star-rating {
+  display: inline-block;
+  font-size: 1.5em; /* Adjust size as needed */
+}
+
+.star {
+  cursor: pointer;
+  color: #ccc; /* Default star color */
+  transition: color 0.2s ease-in-out;
+
+  &.filled {
+    color: gold; /* Filled star color */
+  }
+
+  &:hover {
+    color: orange; /* Hover color */
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}

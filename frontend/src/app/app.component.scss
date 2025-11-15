@@ -1,0 +1,36 @@
+/* Global Styles */
+:host {
+  --primary-color: #3f51b5; /* Example primary color */
+  --primary-color-dark: #303f9f; /* Darker shade for hover states */
+  --accent-color: #ff4081; /* Example accent color */
+  --background-color: #f4f6f8;
+  --text-color: #333;
+  --light-text-color: #666;
+  --light-text-color-dark: #555; /* Darker shade for light text color */
+  --border-color: #ddd;
+  --card-background: #fff;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    margin: 10px auto;
+    padding: 0 10px;
+  }
+}

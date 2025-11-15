@@ -1,0 +1,61 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  background-color: var(--card-background);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+input[type="text"],
+textarea {
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1em;
+  width: 100%;
+  box-sizing: border-box; /* Include padding in width */
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+div[ngIf] { /* Styling for validation messages */
+  color: #d32f2f; /* Red color for errors */
+  font-size: 0.85em;
+  margin-top: 5px;
+}
+
+button {
+  padding: 10px 15px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover:not(:disabled) {
+    background-color: var(--primary-color-dark); /* Changed to use CSS variable */
+  }
+
+  &:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+}

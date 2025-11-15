@@ -1,0 +1,11 @@
+<div class="card" *ngIf="release">
+  <a [routerLink]="['/release', release.id]">
+    <img [src]="release.coverImageUrl" [alt]="release.title">
+    <div class="card-content">
+      <h2>{{ release.title }}</h2>
+      <p>{{ release.artist }}</p>
+      <app-star-rating [rating]="release.averageRating"></app-star-rating>
+      <p>{{ release.totalTime }}</p>
+    </div>
+  </a>
+</div>

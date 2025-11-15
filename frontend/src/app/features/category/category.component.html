@@ -1,0 +1,9 @@
+<div class="container" *ngIf="data$ | async as data">
+  <div class="sidebar">
+    <input type="text" [formControl]="searchControl" placeholder="Search by title or artist...">
+    <app-genre-list [genres]="data.genres" (genreSelected)="onGenreSelected($event)" [selectedGenre]="data.genre"></app-genre-list>
+  </div>
+  <div class="main-content">
+    <app-release-card *ngFor="let release of data.releases" [release]="release"></app-release-card>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+.home-page {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.sidebar {
+  flex: 0 0 250px; /* Fixed width for sidebar on desktop */
+  background-color: var(--card-background);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.sidebar input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  box-sizing: border-box; /* Include padding in width */
+}
+
+.main-content {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
+  gap: 20px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .home-page {
+    flex-direction: column; /* Stack sidebar and main content vertically */
+  }
+
+  .sidebar {
+    flex: 0 0 auto; /* Allow sidebar to take full width */
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .main-content {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Adjust grid for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    grid-template-columns: 1fr; /* Single column on very small screens */
+  }
+}

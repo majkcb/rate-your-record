@@ -1,0 +1,17 @@
+<form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="name">Name</label>
+    <input id="name" formControlName="name">
+    <div *ngIf="commentForm.get('name')!.invalid && commentForm.get('name')!.touched">
+      Name is required.
+    </div>
+  </div>
+  <div>
+    <label for="commentText">Comment</label>
+    <textarea id="commentText" formControlName="commentText"></textarea>
+    <div *ngIf="commentForm.get('commentText')!.invalid && commentForm.get('commentText')!.touched">
+      Comment is required.
+    </div>
+  </div>
+  <button type="submit" [disabled]="commentForm.invalid || isSubmitting">Submit</button>
+</form>
