@@ -31,7 +31,8 @@ public class DiscogsService {
         return discogsClient.searchReleases(query)
                 .map(discogsResults -> discogsResults.stream()
                         .map(this::mapDiscogsResultToRelease)
-                        .collect(Collectors.toList()));
+                        .toList()
+                );
     }
 
     public Mono<Release> getReleaseDetails(String discogsReleaseId) {
@@ -97,11 +98,12 @@ public class DiscogsService {
 
     private List<String> getTracklistFromDiscogsTracks(List<DiscogsTrack> tracklist) {
         return Optional.ofNullable(tracklist)
-                .orElse(Collections.emptyList())
+                .orElse(List.of())
                 .stream()
-                .map(track -> String.format("%s. %s (%s)", track.position(), track.title(), track.duration()))
-                .collect(Collectors.toList());
+                .map(t -> "%s. %s (%s)".formatted(t.position(), t.title(), t.duration()))
+                .toList();
     }
+
 
     private Set<String> getGenresFromDiscogsResponse(List<String> genres, List<String> styles) {
         return Stream.concat(
@@ -117,7 +119,6 @@ public class DiscogsService {
 
         long totalSeconds = tracklist.stream()
                 .map(DiscogsTrack::duration)
-                .filter(duration -> duration != null && !duration.isEmpty())
                 .mapToLong(this::parseDurationToSeconds)
                 .sum();
 
@@ -128,14 +129,18 @@ public class DiscogsService {
     }
 
     private long parseDurationToSeconds(String duration) {
+        if (duration == null || duration.isEmpty()) {
+            return 0;
+        }
         try {
             String[] parts = duration.split(":");
             if (parts.length == 2) {
                 return Long.parseLong(parts[0]) * 60 + Long.parseLong(parts[1]);
+            } else {
+                throw new IllegalArgumentException("Invalid duration format: " + duration);
             }
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid duration format: " + duration, e);
         }
-        return 0;
     }
 }
