@@ -53,7 +53,7 @@ jobs:
         working-directory: ./frontend
 
       - name: Run Frontend Unit Tests
-        run: npm run test -- --no-watch --browsers=ChromeHeadless --code-coverage
+        run: ./node_modules/.bin/ng test --watch=false --browsers=ChromeHeadless --code-coverage
         working-directory: ./frontend
 
       - name: Install Playwright Browsers
@@ -65,7 +65,7 @@ jobs:
         working-directory: ./frontend
 
       - name: Build Frontend for ZAP Scan
-        run: npm run build
+        run: ./node_modules/.bin/ng build
         working-directory: ./frontend
 
       - name: Run ZAP Baseline Scan
