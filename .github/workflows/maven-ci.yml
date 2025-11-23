@@ -51,16 +51,16 @@ jobs:
         run: cd frontend && npm audit --audit-level=high --registry=https://registry.npmjs.org
 
       - name: Run Frontend Unit Tests
-        run: cd frontend && npm run test -- --no-watch --browsers=ChromeHeadless --code-coverage
+        run: cd frontend && ./node_modules/.bin/ng test --watch=false --browsers=ChromeHeadless --code-coverage
 
       - name: Install Playwright Browsers
-        run: cd frontend && npx playwright install --with-deps
+        run: cd frontend && ./node_modules/.bin/playwright install --with-deps
 
       - name: Run Frontend E2E Tests
-        run: cd frontend && npx playwright test
+        run: cd frontend && ./node_modules/.bin/playwright test
 
       - name: Build Frontend for ZAP Scan
-        run: cd frontend && npm run build
+        run: cd frontend && ./node_modules/.bin/ng build
 
       - name: Run ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.11.0
