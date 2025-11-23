@@ -51,7 +51,8 @@ jobs:
         run: npm audit --prefix frontend --audit-level=high --registry=https://registry.npmjs.org
 
       - name: Run Frontend Unit Tests
-        run: npm test --prefix frontend -- --no-watch --browsers=ChromeHeadless --code-coverage
+        run: npx ng test --watch=false --browsers=ChromeHeadless --code-coverage
+        working-directory: ./frontend
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
@@ -62,7 +63,8 @@ jobs:
         working-directory: ./frontend
 
       - name: Build Frontend for ZAP Scan
-        run: npm run build --prefix frontend
+        run: npx ng build
+        working-directory: ./frontend
 
       - name: Run ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.11.0
