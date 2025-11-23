@@ -48,8 +48,8 @@ jobs:
         run: npm ci
         working-directory: ./frontend
 
-      - name: Add frontend binaries to PATH
-        run: echo "${{ github.workspace }}/frontend/node_modules/.bin" >> $GITHUB_PATH
+      - name: Install Angular CLI globally
+        run: npm install -g @angular/cli
 
       - name: Run Dependency Audit
         run: npm audit --audit-level=high --registry=https://registry.npmjs.org
