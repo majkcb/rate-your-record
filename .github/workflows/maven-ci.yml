@@ -45,28 +45,22 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
 
       - name: Install Frontend Dependencies
-        run: npm ci
-        working-directory: ./frontend
+        run: cd frontend && npm ci
 
       - name: Run Dependency Audit
-        run: npm audit --audit-level=high --registry=https://registry.npmjs.org
-        working-directory: ./frontend
+        run: cd frontend && npm audit --audit-level=high --registry=https://registry.npmjs.org
 
       - name: Run Frontend Unit Tests
-        run: ./node_modules/.bin/ng test --watch=false --browsers=ChromeHeadless --code-coverage
-        working-directory: ./frontend
+        run: cd frontend && npm run test -- --no-watch --browsers=ChromeHeadless --code-coverage
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-        working-directory: ./frontend
+        run: cd frontend && npx playwright install --with-deps
 
       - name: Run Frontend E2E Tests
-        run: npx playwright test
-        working-directory: ./frontend
+        run: cd frontend && npx playwright test
 
       - name: Build Frontend for ZAP Scan
-        run: ./node_modules/.bin/ng build
-        working-directory: ./frontend
+        run: cd frontend && npm run build
 
       - name: Run ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.11.0
