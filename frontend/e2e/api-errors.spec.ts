@@ -8,6 +8,11 @@ test.describe('API Error Handling', () => {
       route.fulfill({ status: 500, body: 'Internal Server Error' });
     });
 
+    await page.route('**/api/genres', async (route) => {
+      const json = ['Rock', 'Pop', 'Electronic', 'Jazz'];
+      await route.fulfill({ json });
+    });
+
     await page.goto('/');
 
     // Verifiera att felmeddelandet visas
@@ -27,8 +32,13 @@ test.describe('API Error Handling', () => {
       if (requestCount === 1) {
         return route.fulfill({ status: 500 });
       }
-      // Fortsätt med det riktiga anropet andra gången
-      return route.continue();
+      const json = [{ id: 1, artist: 'Radiohead', title: 'OK Computer', year: 1997, coverUrl: '' }];
+      return route.fulfill({ json });
+    });
+
+    await page.route('**/api/genres', async (route) => {
+      const json = ['Rock', 'Pop', 'Electronic', 'Jazz'];
+      await route.fulfill({ json });
     });
 
     await page.goto('/');
