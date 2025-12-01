@@ -59,16 +59,21 @@ jobs:
       - name: Run Frontend E2E Tests
         run: cd frontend && ./node_modules/.bin/playwright test
 
-      - name: Build Frontend for ZAP Scan
+      - name: Build Frontend
         run: cd frontend && ./node_modules/.bin/ng build
 
+      - name: Start HTTP Server for ZAP Scan
+        run: |
+          cd frontend/dist/frontend/browser
+          npx http-server -p 8080 &
+          cd -
+      
       - name: Run ZAP Baseline Scan
         uses: zaproxy/action-baseline@v0.11.0
         with:
-          target: 'file://${{ github.workspace }}/frontend/dist/frontend/browser/index.html'
+          target: 'http://localhost:8080'
           fail_action: true
-          # High-level alerts will fail the build
-          min_level: 'high'
+          cmd_options: '-l HIGH'
 
       # --- SonarCloud Analysis for Frontend ---
       - name: Run SonarCloud Scan for Frontend
