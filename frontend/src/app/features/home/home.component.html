@@ -1,4 +1,9 @@
 <div class="container">
+  <div *ngIf="error" class="error-message">
+    <p>Could not load releases. Please try again.</p>
+    <button (click)="retry()">Try again</button>
+  </div>
+
   <div class="home-page" *ngIf="data$ | async as data">
     <div class="sidebar">
       <input type="text" [formControl]="searchControl" placeholder="Search by title or artist...">

@@ -5,9 +5,7 @@ import com.example.rateyourrecord.repository.ReleaseRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
-
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,9 +22,14 @@ public class GenreService {
                 .subscribeOn(Schedulers.boundedElastic())
                 .map(releases -> releases.stream()
                         .flatMap(release -> release.getGenres().stream())
-                        .collect(Collectors.groupingBy(genre -> genre, Collectors.counting())))
+                        .collect(Collectors.groupingBy(
+                                genre -> genre,
+                                Collectors.counting()
+                        )))
                 .map(genreCounts -> genreCounts.entrySet().stream()
                         .map(entry -> new GenreCountDto(entry.getKey(), entry.getValue()))
-                        .collect(Collectors.toList()));
+                        .toList()
+                );
     }
+
 }
