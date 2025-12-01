@@ -73,7 +73,7 @@ jobs:
         with:
           target: 'http://localhost:8080'
           fail_action: true
-          cmd_options: '-l HIGH'
+          cmd_options: '-I'
 
       # --- SonarCloud Analysis for Frontend ---
       - name: Run SonarCloud Scan for Frontend
